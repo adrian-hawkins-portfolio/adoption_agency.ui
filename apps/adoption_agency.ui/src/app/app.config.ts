@@ -2,6 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { BASE_PATH as PetsServiceBasePath } from '@adoption-agency/pets-service';
+import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -9,7 +10,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes),
     {
       provide: PetsServiceBasePath,
-      useValue: 'http://localhost:8080'
+      useValue: environment.baseUrls.petsService
     }
   ]
 };
