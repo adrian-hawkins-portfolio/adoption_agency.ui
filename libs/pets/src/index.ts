@@ -9,4 +9,3 @@ export * from './lib/state/pets.models';
 export { PetsActions, PetsFeature, PetsSelectors };
 export * from './lib/lib.routes';
 
-export * from './lib/pets/pets';

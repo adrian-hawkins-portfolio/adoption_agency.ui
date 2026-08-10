@@ -1,0 +1,89 @@
+<div class="max-w-4xl mx-auto px-4 py-8">
+  <!-- Back Button -->
+  <a 
+    routerLink="/pets/all-pets" 
+    class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-blue-600 mb-6 transition-colors"
+  >
+    ← Back to All Pets
+  </a>
+
+  @if (pet$ | async; as pet) {
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden grid grid-cols-1 md:grid-cols-2">
+      
+      <!-- Pet Image -->
+      <div class="relative min-h-[320px] bg-gray-100">
+        <img 
+          [src]="pet.image || 'https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80'" 
+          [alt]="pet.name" 
+          class="w-full h-full object-cover"
+        />
+        @if (pet.status) {
+          <span 
+            class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-white shadow-sm"
+            [class.bg-emerald-500]="pet.status.toLowerCase() === 'available'"
+            [class.bg-amber-500]="pet.status.toLowerCase() === 'pending'"
+            [class.bg-gray-500]="pet.status.toLowerCase() === 'adopted'"
+          >
+            {{ pet.status }}
+          </span>
+        }
+      </div>
+
+      <!-- Pet Info & Actions -->
+      <div class="p-6 md:p-8 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h1 class="text-3xl font-extrabold text-gray-900">{{ pet.name }}</h1>
+            <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-3 py-1 rounded-full">
+              {{ pet.species }}
+            </span>
+          </div>
+
+          <div class="border-b border-gray-100 pb-4 mb-4">
+            <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Pet ID</p>
+            <p class="text-sm text-gray-600 font-mono">#{{ pet.id }}</p>
+          </div>
+
+          <div class="mb-6">
+            <h2 class="text-sm font-semibold text-gray-700 uppercase tracking-wider mb-2">About</h2>
+            <p class="text-gray-600 leading-relaxed text-sm md:text-base">
+              {{ pet.description }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Adoption Action Area -->
+        <div class="pt-4 border-t border-gray-100 flex flex-col gap-3">
+          @if (pet.status?.toLowerCase() === 'adopted') {
+            <button 
+              disabled 
+              class="w-full bg-gray-200 text-gray-500 font-semibold py-3 px-6 rounded-xl cursor-not-allowed text-center"
+            >
+              Already Adopted
+            </button>
+          } @else {
+            <button 
+              (click)="onAdopt(pet)" 
+              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-center"
+            >
+              Adopt {{ pet.name }}
+            </button>
+          }
+        </div>
+      </div>
+
+    </div>
+  } @else {
+    <!-- Not Found / Loading State -->
+    <div class="text-center py-16 bg-white rounded-2xl border border-gray-200">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">Pet Not Found</h2>
+      <p class="text-gray-500 mb-6">We couldn't find the pet you're looking for.</p>
+      <a 
+        routerLink="/all-pets" 
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-5 rounded-lg transition-colors"
+      >
+        View Available Pets
+      </a>
+    </div>
+  }
+</div>

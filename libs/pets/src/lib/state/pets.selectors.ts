@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { PetsState } from './pets.reducer';
+import { PetModel } from '@adoption-agency/pets-service';
 
 export const selectPetsState = createFeatureSelector<PetsState>('pets');
 
@@ -21,5 +22,6 @@ export const selectPetsError = createSelector(
 export const selectPetById = (id: number) =>
   createSelector(
     selectAllPets,
-    (pets) => pets.find((pet) => pet.id === id)
+    (pets: PetModel[]): PetModel | undefined => 
+          pets?.find((pet) => pet.id === id)
   );
