@@ -2,9 +2,13 @@
   "name": "@adoption-agency.ui/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start:dev": "nx run adoption_agency.ui:serve --configuration=development"
+  },
   "private": true,
   "dependencies": {
+    "@adoption-agency/inspection-service": "file:../adoption_agency.services.inspection/build/output/adoption-agency-inspection-service-1.0.0.tgz",
+    "@adoption-agency/pets-service": "file:../adoption_agency.services.pets/build/output/adoption-agency-pets-service-1.0.0.tgz",
     "@angular/common": "~22.0.4",
     "@angular/compiler": "~22.0.4",
     "@angular/core": "~22.0.4",
