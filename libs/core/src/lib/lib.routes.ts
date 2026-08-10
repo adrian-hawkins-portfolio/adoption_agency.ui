@@ -3,6 +3,11 @@ import { Core } from './core/core';
 
 export const coreRoutes: Route[] = [
   {
+    path: '',
+    redirectTo: 'pets',
+    pathMatch: 'full'
+  },
+  {
     path: 'inspection',
     loadChildren: () =>
       import('@adoption-agency.ui/inspection').then((m) => m.inspectionRoutes),
@@ -12,5 +17,4 @@ export const coreRoutes: Route[] = [
     loadChildren: () =>
       import('@adoption-agency.ui/pets').then((m) => m.petsRoutes),
   },
-  { path: '', component: Core },
 ];

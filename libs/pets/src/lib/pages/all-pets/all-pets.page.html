@@ -1,0 +1,7 @@
+@if (loading$ | async) {
+    <p>Loading...</p>
+} @else {
+    @for (pet of pets$ | async; track pet.id) {
+    <div>{{ pet | json }}</div>
+    }
+}
