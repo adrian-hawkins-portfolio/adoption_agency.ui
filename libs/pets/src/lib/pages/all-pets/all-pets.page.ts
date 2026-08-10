@@ -2,11 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { PetsSelectors } from '../../state';
 import { PetsApiActions } from '../../state/pets.actions';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { selectPetById } from '../../state/pets.selectors';
+import { PetCardComponent } from '../../components/pet-card/pet-card.component';
 
 @Component({
-  imports: [AsyncPipe, JsonPipe ],
+  imports: [AsyncPipe, PetCardComponent ],
   templateUrl: './all-pets.page.html',
   styleUrl: './all-pets.page.css',
 })

@@ -5,7 +5,7 @@ export const PetsApiActions = createActionGroup({
   source: 'Pets Page',
   events: {
     'Load Pets': emptyProps(),
-    'Load Pets Success': props<{ pets: PetModel[] }>(),
+    'Load Pets Success': props<{ pets: Array<PetModel> }>(),
     'Load Pets Failure': props<{ error: string }>(),
   },
 });
