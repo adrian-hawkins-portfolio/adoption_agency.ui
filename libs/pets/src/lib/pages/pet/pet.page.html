@@ -63,10 +63,10 @@
             </button>
           } @else {
             <button 
-              (click)="onAdopt(pet)" 
-              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 text-center"
+            (click)="openAdoptionModal()" 
+            class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all text-center"
             >
-              Adopt {{ pet.name }}
+            Adopt {{ pet.name }}
             </button>
           }
         </div>
@@ -87,3 +87,12 @@
     </div>
   }
 </div>
+
+@if (pet$ | async; as pet) {
+  <lib-adoption-modal
+    [isOpen]="isModalOpen" 
+    [pet]="pet"
+    (close)="closeAdoptionModal()"
+    (submitAdopter)="handleAdopterSubmission($event, pet)"
+  />
+}

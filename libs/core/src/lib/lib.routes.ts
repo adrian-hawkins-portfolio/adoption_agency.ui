@@ -3,9 +3,14 @@ import { Core } from './core/core';
 
 export const coreRoutes: Route[] = [
   {
+    path: 'adoption',
+    loadChildren: () =>
+      import('@adoption-agency.ui/adoption').then((m) => m.adoptionRoutes),
+  },
+  {
     path: '',
     redirectTo: 'pets',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'inspection',

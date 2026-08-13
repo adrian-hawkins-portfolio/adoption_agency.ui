@@ -17,7 +17,8 @@
     "paths": {
       "@adoption-agency.ui/core": ["./libs/core/src/index.ts"],
       "@adoption-agency.ui/pets": ["./libs/pets/src/index.ts"],
-      "@adoption-agency.ui/inspection": ["./libs/inspection/src/index.ts"]
+      "@adoption-agency.ui/inspection": ["./libs/inspection/src/index.ts"],
+      "@adoption-agency.ui/adoption": ["./libs/adoption/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

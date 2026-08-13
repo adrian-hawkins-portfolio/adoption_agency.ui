@@ -1,0 +1,103 @@
+@if (isOpen) {
+      <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-fadeIn">
+        <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden border border-gray-100">
+          
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+            <h3 class="text-lg font-bold text-gray-900">
+              Adopt {{ pet.name }}
+            </h3>
+            <button 
+              (click)="closeModal.emit()" 
+              class="text-gray-400 hover:text-gray-600 font-bold text-xl p-1"
+            >
+              &times;
+            </button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="p-6">
+            <p class="text-sm text-gray-600 mb-5">
+              Select how you would like to register the adopter for <span class="font-semibold text-gray-900">{{ pet.name }}</span>.
+            </p>
+
+            <!-- Mode Selector Tabs -->
+            <div class="grid grid-cols-2 gap-2 p-1 bg-gray-100 rounded-xl mb-6">
+              <button 
+                type="button" 
+                (click)="selectedAction.set('search')"
+                [class.bg-white]="selectedAction() === 'search'"
+                [class.text-blue-600]="selectedAction() === 'search'"
+                [class.shadow-sm]="selectedAction() === 'search'"
+                class="py-2.5 text-sm font-semibold text-gray-600 rounded-lg transition-all"
+              >
+                Search User
+              </button>
+              <button 
+                type="button" 
+                (click)="selectedAction.set('create')"
+                [class.bg-white]="selectedAction() === 'create'"
+                [class.text-blue-600]="selectedAction() === 'create'"
+                [class.shadow-sm]="selectedAction() === 'create'"
+                class="py-2.5 text-sm font-semibold text-gray-600 rounded-lg transition-all"
+              >
+                Create User
+              </button>
+            </div>
+
+            <!-- Form Fields -->
+            <form (submit)="onSubmit($event)" class="space-y-4">
+              
+              <!-- Additional Name field if Creating -->
+              @if (selectedAction() === 'create') {
+                <div>
+                  <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">Full Name</label>
+                  <input 
+                    type="text" 
+                    [(ngModel)]="name" 
+                    name="name" 
+                    required 
+                    placeholder="Jane Doe"
+                    class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm"
+                  />
+                </div>
+              }
+
+              <!-- Email Field (Used for both Search & Create) -->
+              <div>
+                <label class="block text-xs font-semibold text-gray-700 uppercase mb-1">
+                  {{ selectedAction() === 'search' ? 'Search by Email' : 'User Email' }}
+                </label>
+                <input 
+                  type="email" 
+                  [(ngModel)]="email" 
+                  name="email" 
+                  required 
+                  placeholder="user&#64;example.com"
+                  class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 text-sm"
+                />
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex gap-3 pt-4">
+                <button 
+                  type="button" 
+                  (click)="closeModal.emit()"
+                  class="flex-1 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-colors text-sm"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit"
+                  class="flex-1 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-sm transition-colors text-sm"
+                >
+                  {{ selectedAction() === 'search' ? 'Search & Confirm' : 'Create & Adopt' }}
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    }

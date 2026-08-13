@@ -1,0 +1,1 @@
+export * from './adoption-modal/adoption-modal.component';
