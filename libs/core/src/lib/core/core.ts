@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'lib-core',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './core.html',
   styleUrl: './core.css',
 })

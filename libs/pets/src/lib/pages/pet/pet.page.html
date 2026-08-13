@@ -79,7 +79,7 @@
       <h2 class="text-xl font-semibold text-gray-800 mb-2">Pet Not Found</h2>
       <p class="text-gray-500 mb-6">We couldn't find the pet you're looking for.</p>
       <a 
-        routerLink="/all-pets" 
+        routerLink="/pets/all-pets" 
         class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-5 rounded-lg transition-colors"
       >
         View Available Pets
@@ -92,7 +92,7 @@
   <lib-adoption-modal
     [isOpen]="isModalOpen" 
     [pet]="pet"
-    (close)="closeAdoptionModal()"
+    (closeModal)="closeAdoptionModal()"
     (submitAdopter)="handleAdopterSubmission($event, pet)"
   />
 }
