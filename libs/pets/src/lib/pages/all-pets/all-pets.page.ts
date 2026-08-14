@@ -19,6 +19,5 @@ export class AllPetsPage implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(PetsApiActions.loadPets());
-    this.store.select(selectPetById(11)).subscribe(res => console.log(res));
   }
 }

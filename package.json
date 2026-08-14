@@ -8,6 +8,7 @@
   "private": true,
   "dependencies": {
     "@adoption-agency/inspection-service": "file:../adoption_agency.services.inspection/build/output/adoption-agency-inspection-service-1.0.0.tgz",
+    "@adoption-agency/owners-service": "file:../adoption_agency.services.owners/build/output/adoption-agency-owners-service-1.0.0.tgz",
     "@adoption-agency/pets-service": "file:../adoption_agency.services.pets/build/output/adoption-agency-pets-service-1.0.0.tgz",
     "@angular/common": "~22.0.4",
     "@angular/compiler": "~22.0.4",
