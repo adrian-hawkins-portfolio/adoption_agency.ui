@@ -7,6 +7,7 @@
   },
   "private": true,
   "dependencies": {
+    "@adoption-agency/adoption-service": "file:../adoption_agency.services.adoptions/build/output/adoption-agency-adoption-service-1.0.0.tgz",
     "@adoption-agency/inspection-service": "file:../adoption_agency.services.inspection/build/output/adoption-agency-inspection-service-1.0.0.tgz",
     "@adoption-agency/owners-service": "file:../adoption_agency.services.owners/build/output/adoption-agency-owners-service-1.0.0.tgz",
     "@adoption-agency/pets-service": "file:../adoption_agency.services.pets/build/output/adoption-agency-pets-service-1.0.0.tgz",

@@ -25,11 +25,6 @@ export class PetPage implements OnInit {
     this.pet$ = this.store.select(selectPetById(Number(id)));
   }
 
-  onAdopt(pet: PetModel): void {
-    // Dispatch an adopt action to NgRx store or open an adoption modal
-    // this.store.dispatch(PetsApiActions.adoptPet({ id: pet.id }));
-    alert(`Thank you for your interest in adopting ${pet.name}!`);
-  }
 
   openAdoptionModal(): void {
     this.isModalOpen = true;
@@ -44,10 +39,8 @@ export class PetPage implements OnInit {
     
     if (data.action === 'search') {
       alert(`Searching for user with email: ${data.email} to adopt ${pet.name}`);
-      // Dispatch search action or API call here
     } else {
       alert(`Creating new user (${data.name} - ${data.email}) and linking adoption for ${pet.name}`);
-      // Dispatch create user & adopt action here
     }
   }
   

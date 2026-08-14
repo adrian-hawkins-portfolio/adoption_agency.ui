@@ -1,1 +1,42 @@
-<p>toast works!</p>
+<div 
+    class="pointer-events-auto flex items-start justify-between gap-3 p-4 rounded-xl shadow-xl border bg-white transition-all transform duration-200"
+    [class.border-emerald-200]="type === 'success'"
+    [class.border-amber-200]="type === 'warning'"
+    [class.border-rose-200]="type === 'error'"
+>
+    <div class="flex items-start gap-3">
+    @switch (type) {
+        @case ('success') {
+        <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✓</div>
+        }
+        @case ('warning') {
+        <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">!</div>
+        }
+        @case ('error') {
+        <div class="w-6 h-6 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">✕</div>
+        }
+    }
+
+    <div>
+        <h4 
+        class="text-xs font-bold uppercase tracking-wider mb-0.5"
+        [class.text-emerald-700]="type === 'success'"
+        [class.text-amber-700]="type === 'warning'"
+        [class.text-rose-700]="type === 'error'"
+        >
+        {{ type }}
+        </h4>
+        <p class="text-sm font-medium text-slate-700 leading-snug">
+        {{ message }}
+        </p>
+    </div>
+    </div>
+
+    <button 
+    type="button" 
+    (click)="dismiss()"
+    class="text-slate-400 hover:text-slate-600 p-1 rounded-lg hover:bg-slate-100 transition-colors shrink-0 text-xs font-bold"
+    >
+    ✕
+    </button>
+</div>

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+export type ToastType = 'success' | 'warning' | 'error';
 
 @Component({
   selector: 'lib-toast',
@@ -6,4 +8,8 @@ import { Component } from '@angular/core';
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.css',
 })
-export class ToastComponent {}
+export class ToastComponent {
+  @Input() message = '';
+  @Input() type: ToastType = 'success';
+  dismiss: () => void = () => {};
+}
