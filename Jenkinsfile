@@ -17,16 +17,16 @@ pipeline {
             }
         }
 
-        // stage('Configure git identity') {
-        //     steps {
-        //         container('jnlp') {
-        //             sh '''
-        //                 git config user.name "jenkins-bot"
-        //                 git config user.email "jenkins-bot@yourcompany.com"
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Configure git identity') {
+            steps {
+                container('jnlp') {
+                    sh '''
+                        git config user.name "jenkins-bot"
+                        git config user.email "jenkins-bot@ci.com"
+                    '''
+                }
+            }
+        }
 
         stage('Bump and Tag') {
             steps {
