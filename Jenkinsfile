@@ -32,12 +32,16 @@ pipeline {
             steps {
                 container('jnlp') {
                     withCredentials([usernamePassword(
-                        credentialsId: 'github-push-token',
+                        credentialsId: 'github-push-creds',
                         usernameVariable: 'GIT_USER',
                         passwordVariable: 'GIT_TOKEN'
                     )]) {
+                        sh '''
+                            REPO_URL=$(git remote get-url origin | sed "s#https://#https://${GIT_USER}:${GIT_TOKEN}@#")
+                            git remote set-url origin "$REPO_URL"
+                        '''
                         script {
-                            def newVersion = bumpAndPushTag()
+                            def newVersion = bumpAndTag()
                             echo "New version: ${newVersion}"
                         }
                     }
