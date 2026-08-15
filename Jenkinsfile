@@ -32,7 +32,7 @@ pipeline {
             steps {
                 container('jnlp') {
                     withCredentials([usernamePassword(
-                        credentialsId: 'github-push-creds',
+                        credentialsId: 'github-push-token',
                         usernameVariable: 'GIT_USER',
                         passwordVariable: 'GIT_TOKEN'
                     )]) {
