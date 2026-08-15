@@ -32,7 +32,7 @@ pipeline {
             steps {
                 container('jnlp') {
                     script {
-                        def newVersion = bumpAndTag()
+                        def newVersion = bumpAndPushTag()
                         echo "New version: ${newVersion}"
                     }
                 }
