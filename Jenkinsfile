@@ -41,7 +41,7 @@ pipeline {
                             git remote set-url origin "$REPO_URL"
                         '''
                         script {
-                            def newVersion = bumpAndTag()
+                            def newVersion = bumpAndPushTag()
                             echo "New version: ${newVersion}"
                         }
                     }
