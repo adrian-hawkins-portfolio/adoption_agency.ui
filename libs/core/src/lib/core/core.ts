@@ -42,24 +42,24 @@ export class Core {
         { label: 'Add Pet', path: '/pets/add-pet', icon: '➕' },
       ],
     },
-    {
-      id: 'adoption',
-      title: 'Adoptions',
-      icon: '📋',
-      items: [
-        { label: 'Adoption Applications', path: '/adoption/applications', icon: '📥' },
-        { label: 'Approved Adoptions', path: '/adoption/approved', icon: '✅' },
-      ],
-    },
-    {
-      id: 'inspection',
-      title: 'Inspections',
-      icon: '🔍',
-      items: [
-        { label: 'Scheduled Inspections', path: '/inspection/scheduled', icon: '📅' },
-        { label: 'Inspection History', path: '/inspection/history', icon: '📜' },
-      ],
-    },
+    // {
+    //   id: 'adoption',
+    //   title: 'Adoptions',
+    //   icon: '📋',
+    //   items: [
+    //     { label: 'Adoption Applications', path: '/adoption/applications', icon: '📥' },
+    //     { label: 'Approved Adoptions', path: '/adoption/approved', icon: '✅' },
+    //   ],
+    // },
+    // {
+    //   id: 'inspection',
+    //   title: 'Inspections',
+    //   icon: '🔍',
+    //   items: [
+    //     { label: 'Scheduled Inspections', path: '/inspection/scheduled', icon: '📅' },
+    //     { label: 'Inspection History', path: '/inspection/history', icon: '📜' },
+    //   ],
+    // },
   ];
 
   toggleMenu(): void {

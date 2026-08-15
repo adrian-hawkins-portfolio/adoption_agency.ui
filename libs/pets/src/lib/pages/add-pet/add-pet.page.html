@@ -1,0 +1,226 @@
+<div class="max-w-6xl mx-auto py-2 px-1">
+  
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h2 class="text-2xl font-black text-slate-900 tracking-tight">Add New Pet</h2>
+    <p class="text-sm text-slate-500 mt-1">Upload a photo and fill out pet details for adoption.</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    
+    <!-- Left Column: Form -->
+    <div class="lg:col-span-7">
+      <form [formGroup]="petForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        
+        <!-- Species Selector -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
+            Species <span class="text-rose-500">*</span>
+          </label>
+          <div class="grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              (click)="setSpecies('cat')"
+              class="flex items-center justify-center gap-3 p-3.5 rounded-xl border-2 font-bold transition-all"
+              [class.border-emerald-500]="petForm.value.species === 'cat'"
+              [class.bg-emerald-50]="petForm.value.species === 'cat'"
+              [class.text-emerald-800]="petForm.value.species === 'cat'"
+              [class.border-slate-200]="petForm.value.species !== 'cat'"
+              [class.hover:border-slate-300]="petForm.value.species !== 'cat'"
+            >
+              <span class="text-2xl">🐱</span>
+              <span>Cat</span>
+            </button>
+
+            <button
+              type="button"
+              (click)="setSpecies('dog')"
+              class="flex items-center justify-center gap-3 p-3.5 rounded-xl border-2 font-bold transition-all"
+              [class.border-emerald-500]="petForm.value.species === 'dog'"
+              [class.bg-emerald-50]="petForm.value.species === 'dog'"
+              [class.text-emerald-800]="petForm.value.species === 'dog'"
+              [class.border-slate-200]="petForm.value.species !== 'dog'"
+              [class.hover:border-slate-300]="petForm.value.species !== 'dog'"
+            >
+              <span class="text-2xl">🐶</span>
+              <span>Dog</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pet Name -->
+        <div>
+          <label for="name" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            Pet Name <span class="text-rose-500">*</span>
+          </label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            placeholder="e.g. Milo"
+            class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm"
+            [class.border-rose-400]="petForm.get('name')?.invalid && petForm.get('name')?.touched"
+          />
+          @if (petForm.get('name')?.invalid && petForm.get('name')?.touched) {
+            <p class="text-xs text-rose-500 mt-1 font-medium">Please enter a valid pet name (min 2 characters).</p>
+          }
+        </div>
+
+        <!-- Image File Upload Dropzone -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            Pet Photo <span class="text-rose-500">*</span>
+          </label>
+
+          @if (!selectedFile()) {
+            <!-- Dropzone Area -->
+            <div 
+              (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)"
+              (drop)="onDrop($event)"
+              class="relative border-2 border-dashed rounded-2xl p-6 text-center transition-all bg-slate-50/50 cursor-pointer hover:bg-slate-50"
+              [class.border-emerald-500]="isDragging"
+              [class.bg-emerald-50\/30]="isDragging"
+              [class.border-slate-200]="!isDragging"
+            >
+              <input 
+                type="file" 
+                accept="image/*"
+                (change)="onFileSelected($event)"
+                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+              />
+
+              <div class="flex flex-col items-center justify-center space-y-2">
+                <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl">
+                  📁
+                </div>
+                <div>
+                  <p class="text-sm font-bold text-slate-700">
+                    Click to upload <span class="font-normal text-slate-500">or drag and drop</span>
+                  </p>
+                  <p class="text-xs text-slate-400 mt-1">PNG, JPG, JPEG, WEBP (Max 10MB)</p>
+                </div>
+              </div>
+            </div>
+          } @else {
+            <!-- Selected File Badge -->
+            <div class="flex items-center justify-between p-3.5 rounded-xl border border-slate-200 bg-white shadow-xs">
+              <div class="flex items-center gap-3 overflow-hidden">
+                <img [src]="previewUrl()" alt="Thumbnail" class="w-12 h-12 rounded-lg object-cover shrink-0" />
+                <div class="truncate">
+                  <p class="text-sm font-bold text-slate-800 truncate">{{ selectedFile()?.name }}</p>
+                  <!-- <p class="text-xs text-slate-400"> MB</p> -->
+                </div>
+              </div>
+
+              <button 
+                type="button" 
+                (click)="removeFile()"
+                class="p-2 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors shrink-0"
+                title="Remove image"
+              >
+                ✕
+              </button>
+            </div>
+          }
+
+          @if (!selectedFile() && petForm.touched) {
+            <p class="text-xs text-rose-500 mt-1 font-medium">An image file is required.</p>
+          }
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label for="description" class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
+            Description <span class="text-rose-500">*</span>
+          </label>
+          <textarea
+            id="description"
+            rows="4"
+            formControlName="description"
+            placeholder="Describe the pet's personality, background, and care needs..."
+            class="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm resize-none"
+            [class.border-rose-400]="petForm.get('description')?.invalid && petForm.get('description')?.touched"
+          ></textarea>
+          @if (petForm.get('description')?.invalid && petForm.get('description')?.touched) {
+            <p class="text-xs text-rose-500 mt-1 font-medium">Description must be at least 10 characters long.</p>
+          }
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100">
+          <button
+            type="button"
+            (click)="onCancel()"
+            class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            [disabled]="isSubmitting || !selectedFile()"
+            class="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-700 active:scale-[0.98] transition-all disabled:opacity-50 flex items-center gap-2 shadow-sm"
+          >
+            @if (isSubmitting) {
+              <span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+              <span>Uploading...</span>
+            } @else {
+              <span>Create Pet</span>
+            }
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Right Column: Live Card Preview -->
+    <div class="lg:col-span-5 sticky top-24">
+      <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Live Card Preview</p>
+      
+      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+        
+        <!-- Image Container -->
+        <div class="h-52 bg-slate-100 relative overflow-hidden flex items-center justify-center">
+          @if (previewUrl()) {
+            <img 
+              [src]="previewUrl()" 
+              [alt]="petForm.value.name || 'Pet preview'" 
+              class="w-full h-full object-cover"
+            />
+          } @else {
+            <div class="text-center p-4">
+              <span class="text-4xl block mb-2">{{ petForm.value.species === 'dog' ? '🐶' : '🐱' }}</span>
+              <p class="text-xs text-slate-400">Select or drop an image file to preview</p>
+            </div>
+          }
+
+          <!-- Species Badge -->
+          <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold capitalize bg-white/90 backdrop-blur-xs text-slate-800 shadow-xs border border-white/50">
+            {{ petForm.value.species === 'dog' ? '🐶 Dog' : '🐱 Cat' }}
+          </span>
+        </div>
+
+        <!-- Card Body -->
+        <div class="p-5">
+          <h3 class="text-lg font-bold text-slate-900 truncate">
+            {{ petForm.value.name || 'Pet Name' }}
+          </h3>
+
+          <p class="text-xs text-slate-500 mt-2 line-clamp-3 leading-relaxed">
+            {{ petForm.value.description || 'Pet description will appear here as you type into the form...' }}
+          </p>
+
+          <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-lg">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Available for Adoption
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

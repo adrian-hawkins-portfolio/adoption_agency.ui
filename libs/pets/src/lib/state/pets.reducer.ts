@@ -32,8 +32,11 @@ export const petsReducer = createReducer(
     error,
   })),
   on(PetsApiActions.setPetStatus, (state, {petId, petSatus}) => ({
-    loading: true,
+    ...state,
     pets: state.pets.map(pet => pet.id === petId ? {...pet, status: petSatus} : pet),
-    error: null
+  })),
+  on(PetsApiActions.addNewPet, (state, {pet}) => ({
+    ...state,
+    pets: state.pets.concat(pet)
   }))
 );
